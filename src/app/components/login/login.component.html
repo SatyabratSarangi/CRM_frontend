@@ -1,0 +1,82 @@
+<div class="login-wrapper">
+  <!-- Top Bar Settings Pill -->
+  <div class="top-bar-auth">
+    <div class="system-status">
+      <div class="pulse-dot"></div>
+      <span>System Active</span>
+    </div>
+    <div class="divider"></div>
+    <button class="theme-toggle-btn" (click)="toggleTheme()" type="button" matTooltip="Toggle Dark/Light Mode">
+      <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </div>
+
+  <!-- Colorful Gradient Orbs -->
+  <div class="color-orb orb-1"></div>
+  <div class="color-orb orb-2"></div>
+  <div class="color-orb orb-3"></div>
+
+  <!-- White Glass Backing Tiles (CRM features) -->
+  <div class="white-tile tile-1">
+    <div class="tile-content">
+      <mat-icon class="tile-icon">insights</mat-icon>
+      <h3>Lead Pipeline</h3>
+      <p>Organize, filter, and convert your leads seamlessly with custom categories and status tracking.</p>
+    </div>
+  </div>
+
+  <div class="white-tile tile-2">
+    <div class="tile-content">
+      <mat-icon class="tile-icon">event_note</mat-icon>
+      <h3>Follow-ups</h3>
+      <p>Schedule meetings, write timeline notes, and record logs to ensure client satisfaction.</p>
+    </div>
+  </div>
+
+  <!-- Main login card -->
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-wrap">
+        <mat-icon class="logo-icon">business_center</mat-icon>
+      </div>
+      <h1>Sign in to CRM</h1>
+      <p>Welcome back! Please enter your details.</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Username -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="Enter your username" autocomplete="username">
+        <mat-icon matPrefix>person_outline</mat-icon>
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'"
+               formControlName="password" placeholder="••••••••" autocomplete="current-password">
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" class="eye-btn">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button class="submit-btn" type="submit"
+              [disabled]="loginForm.invalid || loading">
+        <mat-spinner *ngIf="loading" diameter="20" class="btn-spinner"></mat-spinner>
+        <span *ngIf="!loading">Sign In</span>
+      </button>
+
+      <div class="signup-link">
+        Don't have an account? <a routerLink="/signup">Sign up</a>
+      </div>
+    </form>
+  </div>
+</div>

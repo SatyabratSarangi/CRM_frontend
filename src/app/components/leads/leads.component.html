@@ -1,0 +1,144 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Customer Leads</h1>
+      <p>Manage all your customer leads</p>
+    </div>
+    <button mat-raised-button class="add-btn" routerLink="/leads/new">
+      <mat-icon>add</mat-icon> Add New Lead
+    </button>
+  </div>
+
+  <!-- Search Filters -->
+  <div class="filter-card">
+    <div class="filter-grid">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Search by Name</mat-label>
+        <input matInput [(ngModel)]="searchName" placeholder="Customer name" (keyup.enter)="searchLeads()">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="searchStatus">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Priority</mat-label>
+        <mat-select [(ngModel)]="searchPriority">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let p of priorities" [value]="p">{{ p }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>City</mat-label>
+        <input matInput [(ngModel)]="searchCity" placeholder="Filter by city" (keyup.enter)="searchLeads()">
+        <mat-icon matPrefix>location_on</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="filter-actions">
+      <button mat-raised-button class="search-btn" (click)="searchLeads()">
+        <mat-icon>search</mat-icon> Search
+      </button>
+      <button mat-stroked-button (click)="clearFilters()" class="clear-btn">
+        <mat-icon>clear</mat-icon> Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- Leads Table -->
+  <div class="section-card">
+    <div class="table-container" *ngIf="dataSource.data.length > 0; else empty">
+      <table mat-table [dataSource]="dataSource" matSort class="data-table">
+
+        <ng-container matColumnDef="customerName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="customer-name">{{ lead.customerName }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef>Mobile</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.mobile }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.email || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="leadType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lead Type</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="lead-type-badge">{{ lead.leadType?.name || '—' }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.city || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="status-chip" [ngClass]="getStatusClass(lead.status)">{{ lead.status }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="priority-badge" [ngClass]="getPriorityClass(lead.priority)">{{ lead.priority }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.createdDate | date:'mediumDate' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let lead">
+            <div class="action-btns">
+              <button mat-icon-button (click)="viewLead(lead.id)" matTooltip="View" class="action-view">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button (click)="editLead(lead.id)" matTooltip="Edit" class="action-edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="openWhatsApp(lead.mobile)" matTooltip="WhatsApp" class="action-whatsapp">
+                <mat-icon>chat</mat-icon>
+              </button>
+              <button *ngIf="canDeleteLeads()" mat-icon-button (click)="deleteLead(lead.id, lead.customerName)" matTooltip="Delete" class="action-delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons class="paginator"></mat-paginator>
+    </div>
+
+    <ng-template #empty>
+      <div class="empty-state" *ngIf="!loading">
+        <mat-icon>people_outline</mat-icon>
+        <p>No leads found. Start adding customers!</p>
+        <button mat-raised-button class="add-btn" routerLink="/leads/new">
+          <mat-icon>add</mat-icon> Add Lead
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

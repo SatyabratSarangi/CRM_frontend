@@ -1,0 +1,153 @@
+<div class="page-container" *ngIf="lead">
+  <!-- Header -->
+  <div class="detail-header">
+    <div class="header-left">
+      <button mat-icon-button (click)="goBack()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <h1>{{ lead.customerName }}</h1>
+        <div class="header-badges">
+          <span class="status-chip" [ngClass]="getStatusClass(lead.status)">{{ lead.status }}</span>
+          <span class="priority-badge" [ngClass]="getPriorityClass(lead.priority)">{{ lead.priority }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button class="whatsapp-btn" (click)="openWhatsApp()">
+        <mat-icon>chat</mat-icon> WhatsApp
+      </button>
+      <button mat-raised-button class="edit-btn" (click)="editLead()">
+        <mat-icon>edit</mat-icon> Edit
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <mat-tab-group animationDuration="300ms" class="detail-tabs">
+
+    <!-- Details Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>info</mat-icon> Details
+      </ng-template>
+
+      <div class="tab-content">
+        <div class="detail-grid">
+          <div class="detail-card">
+            <h3><mat-icon>person</mat-icon> Personal Info</h3>
+            <div class="info-row"><span class="label">Name</span><span class="value">{{ lead.customerName }}</span></div>
+            <div class="info-row"><span class="label">Mobile</span><span class="value">{{ lead.mobile }}</span></div>
+            <div class="info-row"><span class="label">Alternate</span><span class="value">{{ lead.alternateNumber || '—' }}</span></div>
+            <div class="info-row"><span class="label">Email</span><span class="value">{{ lead.email || '—' }}</span></div>
+          </div>
+
+          <div class="detail-card">
+            <h3><mat-icon>category</mat-icon> Lead Info</h3>
+            <div class="info-row"><span class="label">Lead Type</span><span class="value">{{ lead.leadType?.name || '—' }}</span></div>
+            <div class="info-row"><span class="label">Lead Source</span><span class="value">{{ lead.leadSource || '—' }}</span></div>
+            <div class="info-row"><span class="label">Status</span><span class="value"><span class="status-chip" [ngClass]="getStatusClass(lead.status)">{{ lead.status }}</span></span></div>
+            <div class="info-row"><span class="label">Priority</span><span class="value"><span class="priority-badge" [ngClass]="getPriorityClass(lead.priority)">{{ lead.priority }}</span></span></div>
+          </div>
+
+          <div class="detail-card">
+            <h3><mat-icon>location_on</mat-icon> Location</h3>
+            <div class="info-row"><span class="label">City</span><span class="value">{{ lead.city || '—' }}</span></div>
+            <div class="info-row"><span class="label">Address</span><span class="value">{{ lead.address || '—' }}</span></div>
+          </div>
+
+          <div class="detail-card">
+            <h3><mat-icon>event</mat-icon> Dates</h3>
+            <div class="info-row"><span class="label">Visit Date</span><span class="value">{{ lead.visitDate ? (lead.visitDate | date:'mediumDate') : '—' }}</span></div>
+            <div class="info-row"><span class="label">Next Follow-up</span><span class="value">{{ lead.nextFollowUpDate ? (lead.nextFollowUpDate | date:'mediumDate') : '—' }}</span></div>
+            <div class="info-row"><span class="label">Created</span><span class="value">{{ lead.createdDate | date:'medium' }}</span></div>
+          </div>
+        </div>
+
+        <div class="detail-card full-width" *ngIf="lead.requirement">
+          <h3><mat-icon>description</mat-icon> Requirement</h3>
+          <p class="detail-text">{{ lead.requirement }}</p>
+        </div>
+
+        <div class="detail-card full-width" *ngIf="lead.discussionDetails">
+          <h3><mat-icon>forum</mat-icon> Discussion Details</h3>
+          <p class="detail-text">{{ lead.discussionDetails }}</p>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Follow-ups Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>history</mat-icon> Follow-ups ({{ followUps.length }})
+      </ng-template>
+
+      <div class="tab-content">
+        <div class="tab-header">
+          <h3>Follow-up History</h3>
+          <button mat-raised-button class="add-btn" (click)="openFollowUpDialog()">
+            <mat-icon>add</mat-icon> Add Follow-up
+          </button>
+        </div>
+
+        <div class="timeline" *ngIf="followUps.length > 0; else noFollowUps">
+          <div *ngFor="let fu of followUps" class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <span class="timeline-date">{{ fu.followUpDate | date:'mediumDate' }}</span>
+                <span class="status-chip" *ngIf="fu.status" [ngClass]="getStatusClass(fu.status)">{{ fu.status }}</span>
+              </div>
+              <p *ngIf="fu.notes" class="timeline-notes">{{ fu.notes }}</p>
+              <p *ngIf="fu.nextFollowUpDate" class="timeline-next">
+                <mat-icon>event</mat-icon> Next: {{ fu.nextFollowUpDate | date:'mediumDate' }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noFollowUps>
+          <div class="empty-state">
+            <mat-icon>history</mat-icon>
+            <p>No follow-ups yet</p>
+          </div>
+        </ng-template>
+      </div>
+    </mat-tab>
+
+    <!-- Notes Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>note</mat-icon> Notes ({{ notes.length }})
+      </ng-template>
+
+      <div class="tab-content">
+        <!-- Add Note -->
+        <div class="add-note-form">
+          <mat-form-field appearance="outline" class="note-field">
+            <mat-label>Add a note</mat-label>
+            <textarea matInput [(ngModel)]="newNoteText" rows="2" placeholder="Type your note here..."></textarea>
+          </mat-form-field>
+          <button mat-raised-button class="add-btn" (click)="addNote()" [disabled]="!newNoteText.trim() || addingNote">
+            <mat-spinner *ngIf="addingNote" diameter="18"></mat-spinner>
+            <span *ngIf="!addingNote"><mat-icon>send</mat-icon> Add</span>
+          </button>
+        </div>
+
+        <div class="notes-list" *ngIf="notes.length > 0; else noNotes">
+          <div *ngFor="let note of notes" class="note-card">
+            <p class="note-text">{{ note.noteText }}</p>
+            <span class="note-date">{{ note.createdDate | date:'medium' }}</span>
+          </div>
+        </div>
+
+        <ng-template #noNotes>
+          <div class="empty-state">
+            <mat-icon>note_add</mat-icon>
+            <p>No notes yet. Add your first note above!</p>
+          </div>
+        </ng-template>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

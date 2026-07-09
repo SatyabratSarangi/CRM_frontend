@@ -1,1 +1,660 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==================== CRM Global Styles ==================== */
+/* Color Palette:
+   Primary:   #0F172A (dark navy)
+   Secondary: #0D9488 (teal)
+   Tertiary:  #25D366 (green)
+   Neutral:   #F8FAFC (light gray)
+   Font:      Inter
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #F8FAFC;
+  color: #334155;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== Scrollbar ==================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==================== Material Overrides ==================== */
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.snackbar-error .mdc-snackbar__surface {
+  background-color: #ef4444 !important;
+}
+
+/* Dialog */
+::ng-deep .custom-dialog .mat-mdc-dialog-container {
+  border-radius: 16px !important;
+}
+
+/* General button styling */
+.mat-mdc-raised-button,
+.mat-mdc-stroked-button,
+.mat-mdc-flat-button {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 8px !important;
+}
+
+/* Form field */
+.mat-mdc-form-field {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(13, 148, 136, 0.2);
+  color: #0F172A;
+}
+
+/* ==================== Dark Theme Variables & Styles ==================== */
+body.dark-theme {
+  background: #080c14 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-theme ::selection {
+  background: rgba(13, 148, 136, 0.4);
+  color: #ffffff;
+}
+
+/* Inside Layout */
+body.dark-theme .app-layout {
+  background: #080c14 !important;
+}
+
+body.dark-theme .toolbar {
+  background: #0f172a !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .menu-toggle {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .user-name {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .sidebar {
+  background: #090d16 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+body.dark-theme .sidebar-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item:hover {
+  background: rgba(13, 148, 136, 0.12) !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item.active {
+  background: rgba(13, 148, 136, 0.15) !important;
+  color: #0D9488 !important;
+  border-left: 4px solid #0D9488;
+  border-radius: 0 10px 10px 0;
+  font-weight: 600;
+}
+
+body.dark-theme .sidebar-nav .nav-item.active mat-icon {
+  color: #0D9488 !important;
+}
+
+body.dark-theme .sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Material Form Fields in Dark Mode */
+body.dark-theme .mat-mdc-form-field-flex {
+  background-color: #1e293b !important;
+}
+
+body.dark-theme input {
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-floating-label {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #0D9488 !important;
+}
+
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #0D9488 !important;
+}
+
+/* Cards & Tables in Dark Mode */
+body.dark-theme .stat-card,
+body.dark-theme .table-card,
+body.dark-theme .types-card,
+body.dark-theme .form-card,
+body.dark-theme .detail-card,
+body.dark-theme .timeline-card,
+body.dark-theme .note-card,
+body.dark-theme .section-card,
+body.dark-theme .filter-card {
+  background: #111827 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-theme .stat-card .stat-title {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .stat-card .stat-value {
+  color: white !important;
+}
+
+body.dark-theme .page-header h1,
+body.dark-theme .page-header p,
+body.dark-theme .leads-container .filter-card h3,
+body.dark-theme .leads-container .table-card h3,
+body.dark-theme .lead-form-container .form-card h2,
+body.dark-theme .detail-container h1,
+body.dark-theme .detail-container h2,
+body.dark-theme .lead-types-container h1 {
+  color: white !important;
+}
+
+body.dark-theme .customer-name {
+  color: white !important;
+}
+
+/* Dialog Container in Dark Theme */
+body.dark-theme .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #111827 !important;
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-dialog-title {
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-dialog-content {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .mat-mdc-select-value {
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-select-arrow {
+  color: #cbd5e1 !important;
+}
+
+/* Tables in Dark Mode */
+body.dark-theme table {
+  background: transparent !important;
+}
+
+body.dark-theme th.mat-mdc-header-cell {
+  background-color: #1f2937 !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+body.dark-theme td.mat-mdc-cell {
+  color: #cbd5e1 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+body.dark-theme tr.mat-mdc-row:hover {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Login/Signup Wrapper changes when dark theme is active */
+body.dark-theme .login-wrapper {
+  background: linear-gradient(135deg, #090d16 0%, #05080f 100%) !important;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.03) 1.5px, transparent 1.5px),
+    linear-gradient(135deg, #090d16 0%, #05080f 100%) !important;
+}
+
+body.dark-theme .login-card {
+  background: #111827 !important;
+  border: 1px solid rgba(13, 148, 136, 0.25) !important;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(13, 148, 136, 0.1) !important;
+}
+
+body.dark-theme .login-header h1 {
+  color: white !important;
+}
+
+body.dark-theme .login-header p {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .white-tile {
+  background: rgba(17, 24, 39, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .tile-content h3 {
+  color: white !important;
+}
+
+body.dark-theme .tile-content p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .orb-1 {
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, transparent 80%) !important;
+}
+
+body.dark-theme .orb-2 {
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.2) 0%, transparent 80%) !important;
+}
+
+body.dark-theme .orb-3 {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 80%) !important;
+}
+
+body.dark-theme .signup-link {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .login-wrapper .mat-mdc-form-field-flex {
+  background-color: #1f2937 !important;
+}
+
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #374151 !important;
+}
+
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__leading,
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__notch,
+body.dark-theme .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__trailing {
+  border-color: #4b5563 !important;
+}
+
+body.dark-theme .login-wrapper .mat-mdc-floating-label {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .login-wrapper input {
+  color: white !important;
+}
+
+body.dark-theme .theme-toggle-btn {
+  color: #f59e0b !important;
+}
+
+/* ==================== High-Legibility Scoped Dark Theme Overrides ==================== */
+
+/* Headings */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+  color: #ffffff !important;
+}
+
+/* Base text elements */
+body.dark-theme p,
+body.dark-theme span:not(.logo-text),
+body.dark-theme label,
+body.dark-theme li,
+body.dark-theme td,
+body.dark-theme th,
+body.dark-theme .mat-mdc-select-value-text,
+body.dark-theme .mat-mdc-form-field-label,
+body.dark-theme .stat-value,
+body.dark-theme .customer-name,
+body.dark-theme .value,
+body.dark-theme .timeline-content,
+body.dark-theme .note-content {
+  color: #f1f5f9 !important;
+}
+
+/* Secondary / muted text elements */
+body.dark-theme .stat-label,
+body.dark-theme .label,
+body.dark-theme .timeline-date,
+body.dark-theme .note-date,
+body.dark-theme .detail-header p,
+body.dark-theme .page-header p,
+body.dark-theme .mat-mdc-card-subtitle,
+body.dark-theme .empty-state p {
+  color: #94a3b8 !important;
+}
+
+/* Inputs & Form fields */
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select,
+body.dark-theme .mat-mdc-select-value {
+  color: #ffffff !important;
+}
+
+body.dark-theme .mat-mdc-form-field-flex {
+  background-color: #1e293b !important;
+}
+
+body.dark-theme .mat-mdc-floating-label {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #0D9488 !important;
+}
+
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+body.dark-theme .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #0D9488 !important;
+}
+
+/* Specific Timeline & Note items */
+body.dark-theme .timeline-by,
+body.dark-theme .note-user {
+  color: #0D9488 !important;
+}
+
+/* Material Tab Headers */
+body.dark-theme .mat-mdc-tab-header {
+  background-color: #111827 !important;
+}
+
+body.dark-theme .mat-mdc-tab {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .mat-mdc-tab.mdc-tab--active {
+  color: #0D9488 !important;
+}
+
+body.dark-theme .mdc-tab-indicator__content--underline {
+  border-color: #0D9488 !important;
+}
+
+/* Select option overlays */
+body.dark-theme .mat-mdc-select-panel {
+  background-color: #1f2937 !important;
+}
+
+body.dark-theme .mat-mdc-option {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .mat-mdc-option:hover,
+body.dark-theme .mat-mdc-option.mdc-list-item--selected {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+body.dark-theme .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #0D9488 !important;
+}
+
+/* Buttons and icons */
+body.dark-theme button.mat-mdc-stroked-button {
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+body.dark-theme button.mat-mdc-icon-button {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .empty-state mat-icon {
+  color: #4b5563 !important;
+}
+
+/* Lead types badges */
+body.dark-theme td.mat-mdc-cell .lead-type-badge {
+  background: rgba(13, 148, 136, 0.15) !important;
+  color: #0D9488 !important;
+}
+
+body.dark-theme td.mat-mdc-cell .status-chip.status-not-interested {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+}
+
+/* Tab container overrides */
+body.dark-theme .detail-tabs {
+  background: #111827 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-theme .tab-content {
+  background: transparent !important;
+}
+
+/* Specific card backgrounds inside tabs */
+body.dark-theme .detail-card,
+body.dark-theme .timeline-card,
+body.dark-theme .note-card {
+  background: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Detail view text readability */
+body.dark-theme .detail-text,
+body.dark-theme .timeline-notes,
+body.dark-theme .note-text {
+  color: #f1f5f9 !important;
+}
+
+/* Actions - Eye details icon and general action buttons in dark mode */
+body.dark-theme button.action-view,
+body.dark-theme button[color="primary"],
+body.dark-theme a.action-view {
+  color: #38bdf8 !important;
+}
+
+body.dark-theme button.action-view mat-icon,
+body.dark-theme button[color="primary"] mat-icon {
+  color: #38bdf8 !important;
+}
+
+body.dark-theme button.action-edit,
+body.dark-theme button.action-edit mat-icon {
+  color: #fbbf24 !important;
+}
+
+body.dark-theme button.action-delete,
+body.dark-theme button.action-delete mat-icon {
+  color: #f87171 !important;
+}
+
+body.dark-theme button.action-whatsapp,
+body.dark-theme button.action-whatsapp mat-icon {
+  color: #4ade80 !important;
+}
+
+/* Sidebar labels and links overrides */
+body.dark-theme .brand-text {
+  color: #ffffff !important;
+}
+
+body.dark-theme .brand-icon {
+  color: #0D9488 !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+body.dark-theme .sidebar-nav .nav-item.active {
+  color: #0D9488 !important;
+  background: rgba(13, 148, 136, 0.12) !important;
+}
+
+/* Stat card backgrounds overrides */
+body.dark-theme .stat-card {
+  background: #111827 !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.dark-theme .stat-value {
+  color: #ffffff !important;
+}
+
+body.dark-theme .stat-label {
+  color: #94a3b8 !important;
+}
+
+/* Keep status chips and priority badges text readable by forcing their dark colors (high-specificity overrides) */
+body.dark-theme span.status-chip.status-new { color: #1d4ed8 !important; }
+body.dark-theme span.status-chip.status-contacted { color: #4338ca !important; }
+body.dark-theme span.status-chip.status-interested { color: #0d9488 !important; }
+body.dark-theme span.status-chip.status-followup { color: #d97706 !important; }
+body.dark-theme span.status-chip.status-visit { color: #7c3aed !important; }
+body.dark-theme span.status-chip.status-negotiation { color: #db2777 !important; }
+body.dark-theme span.status-chip.status-won { color: #16a34a !important; }
+body.dark-theme span.status-chip.status-lost { color: #dc2626 !important; }
+body.dark-theme span.status-chip.status-not-interested { color: #64748b !important; }
+
+body.dark-theme span.priority-badge.priority-hot { color: #dc2626 !important; }
+body.dark-theme span.priority-badge.priority-warm { color: #d97706 !important; }
+body.dark-theme span.priority-badge.priority-cold { color: #2563eb !important; }
+body.dark-theme span.priority-badge.priority-none { color: #64748b !important; }
+
+/* Install PWA Button */
+.install-btn {
+  margin-right: 8px;
+  background: linear-gradient(135deg, #0D9488, #0f766e) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600;
+}
+.install-btn mat-icon {
+  margin-right: 4px;
+}
+
+/* ==================== Responsive Overrides ==================== */
+@media (max-width: 768px) {
+  /* Hide the text in the install button on small screens to save space */
+  .install-btn .install-text {
+    display: none;
+  }
+  .install-btn mat-icon {
+    margin-right: 0;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 16px;
+  }
+  .page-header > div {
+    width: 100%;
+  }
+  .add-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .filter-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .filter-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .filter-actions button {
+    width: 100%;
+  }
+
+  .section-card, .filter-card, .stat-card {
+    padding: 16px !important;
+  }
+
+  ::ng-deep .custom-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+  
+  /* Ensure tables scroll instead of squishing */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .login-card {
+    width: 92% !important;
+    padding: 24px !important;
+  }
+}

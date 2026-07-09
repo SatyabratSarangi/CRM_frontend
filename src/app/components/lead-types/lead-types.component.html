@@ -1,0 +1,60 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Lead Types</h1>
+      <p>Manage your lead categories</p>
+    </div>
+    <button mat-raised-button class="add-btn" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon> Add Lead Type
+    </button>
+  </div>
+
+  <div class="section-card">
+    <div class="table-container" *ngIf="leadTypes.length > 0; else empty">
+      <table mat-table [dataSource]="leadTypes" class="data-table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let lt">#{{ lt.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let lt">
+            <span class="lead-type-name">{{ lt.name }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let lt">{{ lt.description || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let lt">
+            <button mat-icon-button (click)="openEditDialog(lt)" matTooltip="Edit" class="action-edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteLeadType(lt.id, lt.name)" matTooltip="Delete" class="action-delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </div>
+
+    <ng-template #empty>
+      <div class="empty-state">
+        <mat-icon>category</mat-icon>
+        <p>No lead types found. Add your first lead type!</p>
+        <button mat-raised-button class="add-btn" (click)="openAddDialog()">
+          <mat-icon>add</mat-icon> Add Lead Type
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

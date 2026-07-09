@@ -1,0 +1,96 @@
+<div class="login-wrapper">
+  <!-- Top Bar Settings Pill -->
+  <div class="top-bar-auth">
+    <div class="system-status">
+      <div class="pulse-dot"></div>
+      <span>System Active</span>
+    </div>
+    <div class="divider"></div>
+    <button class="theme-toggle-btn" (click)="toggleTheme()" type="button" matTooltip="Toggle Dark/Light Mode">
+      <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </div>
+
+  <!-- Colorful Gradient Orbs -->
+  <div class="color-orb orb-1"></div>
+  <div class="color-orb orb-2"></div>
+  <div class="color-orb orb-3"></div>
+
+  <!-- White Glass Backing Tiles (CRM features) -->
+  <div class="white-tile tile-1">
+    <div class="tile-content">
+      <mat-icon class="tile-icon">insights</mat-icon>
+      <h3>Lead Pipeline</h3>
+      <p>Organize, filter, and convert your leads seamlessly with custom categories and status tracking.</p>
+    </div>
+  </div>
+
+  <div class="white-tile tile-2">
+    <div class="tile-content">
+      <mat-icon class="tile-icon">event_note</mat-icon>
+      <h3>Follow-ups</h3>
+      <p>Schedule meetings, write timeline notes, and record logs to ensure client satisfaction.</p>
+    </div>
+  </div>
+
+  <!-- Main signup card -->
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-wrap">
+        <mat-icon class="logo-icon">business_center</mat-icon>
+      </div>
+      <h1>Create account</h1>
+      <p>Register a new user account below</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Username -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="Username" autocomplete="username">
+        <mat-icon matPrefix>person_outline</mat-icon>
+        <mat-error *ngIf="form.get('username')?.hasError('required')">Username is required</mat-error>
+        <mat-error *ngIf="form.get('username')?.hasError('minlength')">Must be at least 3 characters</mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Password" autocomplete="new-password">
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="form.get('password')?.hasError('minlength')">Must be at least 4 characters</mat-error>
+      </mat-form-field>
+
+      <!-- Confirm Password -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password" autocomplete="new-password">
+        <mat-icon matPrefix>lock_reset</mat-icon>
+        <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')">Please confirm your password</mat-error>
+        <mat-error *ngIf="form.hasError('mismatch') && form.get('confirmPassword')?.touched">Passwords do not match</mat-error>
+      </mat-form-field>
+
+      <!-- Select Role -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Select Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of roles" [value]="role.value">
+            {{ role.label }}
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>badge</mat-icon>
+        <mat-error *ngIf="form.get('role')?.hasError('required')">Role is required</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" class="submit-btn" [disabled]="form.invalid || loading">
+        <mat-spinner *ngIf="loading" diameter="22" class="btn-spinner"></mat-spinner>
+        <span *ngIf="!loading">Create Account</span>
+      </button>
+
+      <div class="signup-link">
+        Already have an account? <a routerLink="/login">Sign In</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,398 @@
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0fdfa 0%, #f0fdf4 50%, #f0f9ff 100%);
+  background-image: 
+    radial-gradient(rgba(13, 148, 136, 0.1) 1.5px, transparent 1.5px),
+    linear-gradient(135deg, #f0fdfa 0%, #f0fdf4 50%, #f0f9ff 100%);
+  background-size: 24px 24px, 100% 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ==================== COLORFUL GRADIENT ORBS ==================== */
+.color-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  z-index: 1;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.38) 0%, rgba(13, 148, 136, 0.1) 60%, transparent 80%);
+  top: -100px;
+  left: -100px;
+}
+
+.orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.3) 0%, rgba(37, 211, 102, 0.08) 60%, transparent 80%);
+  bottom: -100px;
+  right: -100px;
+}
+
+.orb-3 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0.05) 60%, transparent 80%);
+  top: 20%;
+  right: 5%;
+}
+
+/* ==================== WHITE GLASS TILES ==================== */
+.white-tile {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 28px;
+  box-shadow: 
+    0 15px 35px rgba(13, 148, 136, 0.04), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 2;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.tile-1 {
+  width: 320px;
+  height: 320px;
+  top: 10%;
+  left: 8%;
+  transform: rotate(-8deg);
+}
+
+.tile-2 {
+  width: 280px;
+  height: 280px;
+  bottom: 12%;
+  right: 10%;
+  transform: rotate(12deg);
+}
+
+.tile-content {
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.tile-icon {
+  color: #0D9488;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 16px;
+}
+
+.tile-content h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 8px;
+}
+
+.tile-content p {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==================== SIGNUP CARD ==================== */
+.login-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(13, 148, 136, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 40px rgba(13, 148, 136, 0.06), 
+    0 8px 16px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-wrap {
+  width: 48px;
+  height: 48px;
+  background: rgba(13, 148, 136, 0.15);
+  color: #0D9488;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.login-header h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+
+.login-header p {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}
+
+/* ==================== FORM FIELDS ==================== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+::ng-deep .login-wrapper .mat-mdc-form-field-flex {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep .login-wrapper .mat-mdc-text-field-wrapper {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+::ng-deep .login-wrapper .mat-mdc-form-field-prefix mat-icon {
+  color: #0D9488 !important;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: rgba(13, 148, 136, 0.15) !important;
+}
+
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__leading,
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__notch,
+::ng-deep .login-wrapper .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover .mdc-notched-outline__trailing {
+  border-color: rgba(13, 148, 136, 0.3) !important;
+}
+
+::ng-deep .login-wrapper .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .login-wrapper .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .login-wrapper .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #0D9488 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .login-wrapper .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #0D9488 !important;
+}
+
+::ng-deep .login-wrapper .mat-mdc-floating-label {
+  color: #64748b !important;
+}
+
+::ng-deep .login-wrapper input,
+::ng-deep .login-wrapper .mat-mdc-select-value {
+  color: #0F172A !important;
+}
+
+::ng-deep .login-wrapper .mat-mdc-select-arrow {
+  color: #94a3b8 !important;
+}
+
+/* ==================== BUTTONS ==================== */
+.submit-btn {
+  background: #0D9488 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  height: 46px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 6px;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.submit-btn:hover:not([disabled]) {
+  background: #0f766e !important;
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.25) !important;
+}
+
+.submit-btn:disabled {
+  background: #e2e8f0 !important;
+  color: #94a3b8 !important;
+  box-shadow: none !important;
+}
+
+.btn-spinner {
+  display: inline-block;
+}
+
+::ng-deep .submit-btn .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: white !important;
+}
+
+/* ==================== FOOTER ==================== */
+.signup-link {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #475569;
+  margin-top: 16px;
+}
+
+.signup-link a {
+  color: #0D9488;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.signup-link a:hover {
+  color: #0f766e;
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .white-tile {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 32px 24px;
+  }
+}
+
+/* ==================== TOP BAR SETTINGS PILL ==================== */
+.top-bar-auth {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e2e8f0;
+  border-radius: 30px;
+  padding: 6px 14px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  animation: pulseStatus 2s infinite;
+}
+
+@keyframes pulseStatus {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.top-bar-auth .divider {
+  width: 1px;
+  height: 16px;
+  background: #e2e8f0;
+}
+
+.theme-toggle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: #f1f5f9;
+  color: #0D9488;
+}
+
+.theme-toggle-btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Dark Mode Pill overrides */
+body.dark-theme .top-bar-auth {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.dark-theme .system-status {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .top-bar-auth .divider {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-theme .theme-toggle-btn {
+  color: #f59e0b !important;
+}
+
+body.dark-theme .theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+

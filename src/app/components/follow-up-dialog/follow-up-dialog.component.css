@@ -1,0 +1,4 @@
+.dialog-form { display:flex; flex-direction:column; gap:8px; padding-top:8px; min-width:400px; }
+.full-width { width:100%; }
+.cancel-btn { color:#64748b; }
+.save-btn { background:linear-gradient(135deg,#0D9488,#0f766e)!important; color:white!important; font-family:'Inter',sans-serif; font-weight:600; border-radius:8px!important; }

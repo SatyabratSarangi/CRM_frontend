@@ -1,0 +1,28 @@
+
+// Custom Theming for Angular Material — CRM System
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// CRM Color Palette
+// Primary: #0F172A (dark navy)
+// Secondary/Accent: #0D9488 (teal)
+// Tertiary: #25D366 (green)
+// Neutral: #F8FAFC
+
+$crm-primary: mat.define-palette(mat.$blue-grey-palette, 900, 800, 700);
+$crm-accent: mat.define-palette(mat.$teal-palette, 600, 400, 800);
+$crm-warn: mat.define-palette(mat.$red-palette);
+
+$crm-theme: mat.define-light-theme((
+  color: (
+    primary: $crm-primary,
+    accent: $crm-accent,
+    warn: $crm-warn,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: 'Inter, sans-serif',
+  ),
+));
+
+@include mat.all-component-themes($crm-theme);

@@ -1,0 +1,139 @@
+<div class="page-container" *ngIf="!pageLoading">
+  <div class="page-header">
+    <button mat-icon-button (click)="cancel()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div>
+      <h1>{{ isEdit ? 'Edit Lead' : 'Add New Lead' }}</h1>
+      <p>{{ isEdit ? 'Update customer lead details' : 'Enter customer lead information' }}</p>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-card">
+
+    <!-- Personal Information -->
+    <div class="form-section">
+      <h3><mat-icon>person</mat-icon> Personal Information</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Name</mat-label>
+          <input matInput formControlName="customerName" placeholder="Full name">
+          <mat-error *ngIf="form.get('customerName')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile</mat-label>
+          <input matInput formControlName="mobile" placeholder="10-digit mobile" maxlength="10">
+          <mat-icon matPrefix>phone</mat-icon>
+          <mat-error *ngIf="form.get('mobile')?.hasError('required')">Mobile is required</mat-error>
+          <mat-error *ngIf="form.get('mobile')?.hasError('pattern')">Must be 10 digits</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Alternate Number</mat-label>
+          <input matInput formControlName="alternateNumber" placeholder="Optional">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="email@example.com" type="email">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">Invalid email</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Lead Information -->
+    <div class="form-section">
+      <h3><mat-icon>category</mat-icon> Lead Information</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Lead Type</mat-label>
+          <mat-select formControlName="leadType" [compareWith]="compareLeadType">
+            <mat-option *ngFor="let lt of leadTypes" [value]="lt">{{ lt.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('leadType')?.hasError('required')">Lead type is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Lead Source</mat-label>
+          <mat-select formControlName="leadSource">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let src of leadSources" [value]="src">{{ src }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('status')?.hasError('required')">Status is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select formControlName="priority">
+            <mat-option *ngFor="let p of priorities" [value]="p">{{ p }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('priority')?.hasError('required')">Priority is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="form-section">
+      <h3><mat-icon>location_on</mat-icon> Location</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="City">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-span">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="address" rows="2" placeholder="Full address"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Details & Dates -->
+    <div class="form-section">
+      <h3><mat-icon>event</mat-icon> Details & Dates</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Visit Date</mat-label>
+          <input matInput [matDatepicker]="visitPicker" formControlName="visitDate">
+          <mat-datepicker-toggle matSuffix [for]="visitPicker"></mat-datepicker-toggle>
+          <mat-datepicker #visitPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Next Follow-up Date</mat-label>
+          <input matInput [matDatepicker]="followupPicker" formControlName="nextFollowUpDate">
+          <mat-datepicker-toggle matSuffix [for]="followupPicker"></mat-datepicker-toggle>
+          <mat-datepicker #followupPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-span">
+          <mat-label>Requirement</mat-label>
+          <textarea matInput formControlName="requirement" rows="3" placeholder="Customer requirements"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-span">
+          <mat-label>Discussion Details</mat-label>
+          <textarea matInput formControlName="discussionDetails" rows="3" placeholder="Discussion notes"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="cancel()" class="cancel-btn">Cancel</button>
+      <button mat-raised-button type="submit" class="save-btn" [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20" class="btn-spinner"></mat-spinner>
+        <span *ngIf="!loading">{{ isEdit ? 'Update Lead' : 'Create Lead' }}</span>
+      </button>
+    </div>
+  </form>
+</div>

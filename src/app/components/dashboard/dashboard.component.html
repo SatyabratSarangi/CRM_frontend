@@ -1,0 +1,87 @@
+<div class="dashboard-container">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Welcome back! Here's your lead overview.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let card of statCards" class="stat-card" [style.--card-color]="card.color" [style.--card-bg]="card.bg">
+      <div class="stat-icon-wrap" [style.background]="card.bg">
+        <mat-icon [style.color]="card.color">{{ card.icon }}</mat-icon>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ getStatValue(card.key) }}</span>
+        <span class="stat-label">{{ card.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Leads Table -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2>Recent Leads</h2>
+      <button mat-stroked-button color="primary" routerLink="/leads">
+        View All <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+
+    <div class="table-container" *ngIf="recentLeads.length > 0; else noLeads">
+      <table mat-table [dataSource]="recentLeads" class="leads-table">
+
+        <ng-container matColumnDef="customerName">
+          <th mat-header-cell *matHeaderCellDef>Customer</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="customer-name">{{ lead.customerName }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef>Mobile</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.mobile }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="status-chip" [ngClass]="getStatusClass(lead.status)">{{ lead.status }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef>Priority</th>
+          <td mat-cell *matCellDef="let lead">
+            <span class="priority-badge" [ngClass]="getPriorityClass(lead.priority)">{{ lead.priority }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef>City</th>
+          <td mat-cell *matCellDef="let lead">{{ lead.city || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let lead">
+            <button mat-icon-button (click)="viewLead(lead.id)" matTooltip="View Details" color="primary">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </div>
+
+    <ng-template #noLeads>
+      <div class="empty-state">
+        <mat-icon>inbox</mat-icon>
+        <p>No leads yet. Start by adding a new lead!</p>
+        <button mat-raised-button color="primary" routerLink="/leads/new">
+          <mat-icon>add</mat-icon> Add Lead
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
